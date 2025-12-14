@@ -1,0 +1,33 @@
+[project]
+name = "onlineshoprag"
+version = "0.1.0"
+description = "AI-агент техподдержки с RAG"
+readme = "README.md"
+requires-python = "~=3.12.0"
+dependencies = [
+    "fastapi==0.118.3",
+    "rank_bm25==0.2.2",
+    "mlflow==3.7.0",
+    "datasets==3.6.0",
+    "torch==2.5.1",
+    "sentence-transformers==5.0.0",
+    "langchain-qdrant>=0.2.1",
+    "langchain==0.3.27",
+    "langchain-huggingface==0.3.1",
+    "langchain-community==0.3.31",
+    "langchain-openai==0.3.35",
+    "qdrant-client>=1.7.0",
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.1.0",
+    "beautifulsoup4>=4.12.0",
+    "python-multipart>=0.0.6",
+    "streamlit~=1.52.0",
+    "requests>=2.31.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
