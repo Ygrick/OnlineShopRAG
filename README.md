@@ -5,7 +5,7 @@
 
 **3. При первом запуске приложение автоматически проверит наличие данных в Qdrant и при необходимости проиндексирует документ, указанный в настройках `context_html_file`.**
 
-**4. LLM подключалась через OpenRouter (OpenAI-like API), а не разворачивалась локально.**
+**4. LLM подключалась через OpenRouter (OpenAI-like API), а не разворачивалась локально.**  
 ⚠️ ATTENTION ⚠️  
 
 
@@ -29,9 +29,8 @@ AI-агент технической поддержки с RAG-системой 
    Обязательно укажите:
    - `ONLINESHOPRAG__LLM_API_KEY=your_api_key` (можно запросить временный у меня - https://t.me/Ygrickkk)
 
-   Опционально настройте пути к файлам:
+   Опционально настройте путь к файлу с контекстом:
    - `ONLINESHOPRAG__CONTEXT_HTML_FILE=Context.html` (база знаний для RAG)
-   - `ONLINESHOPRAG__SCENARIO_JSON_FILE=Scenario.json` (сценарий)
 
 ## Запуск через Docker Compose
 
@@ -166,7 +165,7 @@ curl -X POST "http://localhost:8000/chat" \
   -H "Content-Type: application/json" \
   -d '{
     "conversation_id": "conv_1",
-    "message": "Спасибо!"
+    "message": "О чем мы общались?"
   }'
 ```
 
@@ -197,7 +196,7 @@ curl -X POST "http://localhost:8000/chat" \
   -H "Content-Type: application/json" \
   -d '{
     "conversation_id": "conv_b",
-    "message": "Как добавить аватарку?"
+    "message": "Выплата за `приведи друга`"
   }'
 ```
 
