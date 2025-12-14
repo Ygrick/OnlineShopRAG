@@ -1,3 +1,14 @@
+⚠️ ATTENTION ⚠️  
+**1. Разработка велась на MacOS (macbook) - приложение не было протестировано на других платформах (Linux, Windows).**  
+
+**2. В приложении используется индексация документов (использование Embedding-модели) через CPU-only (без поддержки GPU) и может занять продолжительно время при первом запуске (до 10 минут, но зависит от процессора).**   
+
+**3. При первом запуске приложение автоматически проверит наличие данных в Qdrant и при необходимости проиндексирует документ, указанный в настройках `context_html_file`.**
+
+**4. LLM подключалась через OpenRouter (OpenAI-like API), а не разворачивалась локально.**
+⚠️ ATTENTION ⚠️  
+
+
 # OnlineShopRAG
 
 AI-агент технической поддержки с RAG-системой на базе Qdrant, памятью диалогов и обработкой сценариев.
@@ -15,7 +26,12 @@ AI-агент технической поддержки с RAG-системой 
    ```bash
    cp .env.example .env
    ```
-   Обязательно укажите `ONLINESHOPRAG__LLM_API_KEY`
+   Обязательно укажите:
+   - `ONLINESHOPRAG__LLM_API_KEY=your_api_key` (можно запросить временный у меня - https://t.me/Ygrickkk)
+
+   Опционально настройте пути к файлам:
+   - `ONLINESHOPRAG__CONTEXT_HTML_FILE=Context.html` (база знаний для RAG)
+   - `ONLINESHOPRAG__SCENARIO_JSON_FILE=Scenario.json` (сценарий)
 
 ## Запуск через Docker Compose
 
@@ -55,24 +71,20 @@ REST API приложения с автоматической документа
 ### Dozzle
 Веб-интерфейс для просмотра логов всех Docker контейнеров в реальном времени. Удобен для отладки и мониторинга работы сервисов.
 
-**Примечание:** Приложение работает исключительно на CPU. Индексация документов может занять продолжительное время при первом запуске.
-
-При первом запуске приложение автоматически проверит наличие данных в Qdrant и при необходимости проиндексирует документ, указанный в настройках `context_html_file`.
-
 ## Индексация документа
 
-Индексация происходит автоматически при старте приложения через `lifespan`. Файл для индексации указывается в настройках `context_html_file` (по умолчанию `Context.html`).
+Индексация происходит автоматически при старте приложения через `lifespan`. 
 
 Если нужно переиндексировать документ вручную:
 
 ```bash
-docker-compose -f docker/docker-compose.yml exec app uv run python -c "from src.settings import settings; from src.rag.retriever import RAGRetriever; RAGRetriever().index_document(settings.context_html_file)"
+docker-compose -f docker/docker-compose.yml exec app uv run python -c "from src.settings import settings; from src.rag.retriever import RAGRetriever; RAGRetriever().index_document(`name_your_file`)"
 ```
 
 Или локально (если установлены зависимости):
 
 ```bash
-uv run python -c "from src.settings import settings; from src.rag.retriever import RAGRetriever; RAGRetriever().index_document(settings.context_html_file)"
+uv run python -c "from src.settings import settings; from src.rag.retriever import RAGRetriever; RAGRetriever().index_document(`name_your_file`)"
 ```
 
 ## Использование
